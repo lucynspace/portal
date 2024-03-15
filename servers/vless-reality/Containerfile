@@ -1,0 +1,18 @@
+FROM almalinux:latest
+
+WORKDIR /portal
+
+ADD easy-xray.sh .
+ADD info.jsonc .
+ADD template_config_server.jsonc .
+ADD template_config_client.jsonc .
+ADD server-rules.dat .
+RUN dnf update --assumeyes
+RUN dnf install --assumeyes jq openssl vim
+
+# Ports
+EXPOSE 80
+EXPOSE 443
+
+ENTRYPOINT ["bash"]
+

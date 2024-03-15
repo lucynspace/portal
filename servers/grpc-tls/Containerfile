@@ -1,0 +1,22 @@
+FROM almalinux:latest
+
+WORKDIR /portal
+
+ADD easy-xray.sh .
+ADD info.jsonc .
+ADD template_config_server.jsonc .
+ADD template_config_client.jsonc .
+ADD server-rules.dat .
+ADD template_nginx-site .
+ADD nginx.conf /etc/nginx/
+ADD cert.pem /etc/ssl/certs/
+ADD cert.key /etc/ssl/private/
+RUN dnf update --assumeyes
+RUN dnf install --assumeyes jq openssl nginx sed vim
+
+# Ports
+EXPOSE 80
+EXPOSE 443
+
+ENTRYPOINT ["bash"]
+
